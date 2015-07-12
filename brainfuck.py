@@ -14,8 +14,8 @@ class Brainfuck:
         guide['-'] = self.dec_byte
         guide['.'] = self.output
         guide[','] = self.input
-        guide['['] = self.start_loop
-        guide[']'] = self.end_loop
+        guide['['] = self.jump_forward
+        guide[']'] = self.jump_back
 
         return guide
 
@@ -43,15 +43,27 @@ class Brainfuck:
         self.arr[self.arr_ptr] = int(raw_input(">"))
 
     # TODO fix nested loop failure
-    def start_loop(self):
+    def jump_forward(self):
+        depth = 1
         if self.arr[self.arr_ptr] == 0:
-            while self.code[self.cmd_ptr] != "]":
+            while depth != 0:
                 self.cmd_ptr += 1
+                cmd = self.code[self.cmd_ptr]
+                if cmd == '[':
+                    depth += 1
+                elif cmd == ']':
+                    depth -= 1
 
-    def end_loop(self):
+    def jump_back(self):
+        depth = 1
         if self.arr[self.arr_ptr] != 0:
-            while self.code[self.cmd_ptr] != "[":
+            while depth != 0:
                 self.cmd_ptr -= 1
+                cmd = self.code[self.cmd_ptr]
+                if cmd == ']':
+                    depth += 1
+                elif cmd == '[':
+                    depth -= 1
 
     def run(self, code, trace=False):
         self.arr = [0]
@@ -68,9 +80,9 @@ class Brainfuck:
 
 brainfuck = Brainfuck()
 
-# Takes input, moves it two cells right
+# Takes input, moves it two cells right - works
 print brainfuck.run(",>>[-]<<[->>+<<]", trace=True)
 
-# Hello world
+# Hello world - might work?
 print brainfuck.run("++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.",
-                    trace=True)
+                   trace=False)
