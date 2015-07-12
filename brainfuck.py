@@ -42,7 +42,6 @@ class Brainfuck:
     def input(self):
         self.arr[self.arr_ptr] = int(raw_input(">"))
 
-    # TODO fix nested loop failure
     def jump_forward(self):
         depth = 1
         if self.arr[self.arr_ptr] == 0:
@@ -80,9 +79,9 @@ class Brainfuck:
 
 brainfuck = Brainfuck()
 
-# Takes input, moves it two cells right - works
+# Takes input, moves it two cells right
 print brainfuck.run(",>>[-]<<[->>+<<]", trace=True)
 
-# Hello world - might work?
+# Hello World!
 print brainfuck.run("++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.>++.",
                    trace=False)
