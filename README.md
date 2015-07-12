@@ -1,2 +1,2 @@
 # python-brainfuck
-A simple brainfuck interpreter in Python
+A simple brainfuck interpreter in Python, just for fun
