@@ -37,7 +37,7 @@ class Brainfuck:
         self.arr[self.arr_ptr] -= 1
 
     def output(self):
-        print self.arr[self.arr_ptr]
+        print chr(self.arr[self.arr_ptr]),
 
     def input(self):
         self.arr[self.arr_ptr] = int(raw_input(">"))
